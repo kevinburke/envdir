@@ -1,5 +1,7 @@
+.PHONY: vendor
+
 test:
 	go test -race ./...
 
-deps:
-	go get -t -d ./...
+vendor:
+	dep ensure

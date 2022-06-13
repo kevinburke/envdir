@@ -19,5 +19,5 @@ jobs:
     - run: echo "PATH=$GITHUB_WORKSPACE/bin:$PATH" >> $GITHUB_ENV
     - run: echo "GO111MODULE=off" >> $GITHUB_ENV
     - name: Download dependency and run tests
-      run: make deps test
+      run: make test
       working-directory: './src/github.com/kevinburke/envdir'
