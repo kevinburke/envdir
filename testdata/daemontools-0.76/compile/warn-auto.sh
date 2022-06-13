@@ -1,0 +1,1 @@
+src/warn-auto.sh
