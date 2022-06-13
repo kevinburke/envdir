@@ -46,6 +46,26 @@ Or, on Macs you can install via Homebrew:
 brew install kevinburke/safe/envdir
 ```
 
+### Comparison with other tools
+
+- Python `envdir` ports: You need a Python runtime to run this in production.
+
+- `mattrobenolt/envdir-plusplus`: Reads a single file with env vars instead of
+  a directory.
+
+- `d10n/envdir`: Uses `docopt` for argument parsing and does not use the `exec`
+  syscall to replace itself in the process hierarchy.
+
+- `yfuruyama/envdir`: Does not replace itself in the process hierarchy with the
+  `exec` syscall.
+
+- `amannocci/genvdir`: Dependency on `cobra` for argument parsing, does not
+  handle null characters, does not handle trailing whitespace correctly.
+
+- `ios116/go-envdir`: Does not delete environment variables if given an empty
+  file.
+
+
 ### Errata
 
 - The original envdir would only allow 256 bytes in an environment variable, this
