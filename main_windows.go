@@ -2,8 +2,13 @@
 
 package main
 
-import "golang.org/x/sys/windows"
+import (
+	"syscall"
+)
 
 func execve(execArgs execArgs) error {
-	return windows.Exec(execArgs.Binary, execArgs.Args, execArgs.Env)
+	// TODO: actually test this
+	return syscall.StartProcess(execArgs.Binary, execArgs.Args, syscall.ProcAttr{
+		Env: execArgs.Env,
+	})
 }
