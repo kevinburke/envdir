@@ -2,8 +2,15 @@
 
 package main
 
-import "golang.org/x/sys/windows"
+import (
+	"os"
+	"os/exec"
+)
 
 func execve(execArgs execArgs) error {
-	return windows.Exec(execArgs.Binary, execArgs.Args, execArgs.Env)
+	cmd := exec.Command(execArgs.Binary, execArgs.Args...)
+	cmd.Env = execArgs.Env
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
