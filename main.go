@@ -69,6 +69,10 @@ func run(args []string) (execArgs, string) {
 	if err != nil {
 		return execArgs{}, fmt.Sprintf("unable to read current directory: %v", err)
 	}
+	origAbsDir, err := filepath.Abs(origdir.Name())
+	if err != nil {
+		return execArgs{}, fmt.Sprintf("unable to resolve current directory path: %v", err)
+	}
 	newdirname := args[1]
 	if err := os.Chdir(newdirname); err != nil {
 		// this prints the directory name twice, maybe rethink
@@ -135,7 +139,7 @@ func run(args []string) (execArgs, string) {
 		setenv(names[i], string(contents))
 	}
 	newdir.Close()
-	if err := os.Chdir(origdir.Name()); err != nil {
+	if err := os.Chdir(origAbsDir); err != nil {
 		return execArgs{}, fmt.Sprintf("unable to switch to starting directory: %v", err)
 	}
 	binary, binaryErr := exec.LookPath(args[2])
