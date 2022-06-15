@@ -5,3 +5,6 @@ test:
 
 vendor:
 	go mod vendor
+
+release:
+	bash scripts/release.sh
