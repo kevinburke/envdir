@@ -4,4 +4,4 @@ test:
 	go test -race ./...
 
 vendor:
-	dep ensure
+	go mod vendor
