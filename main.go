@@ -11,8 +11,6 @@ import (
 	"path/filepath"
 	"strings"
 	"unicode"
-
-	"golang.org/x/sys/unix"
 )
 
 const usage = "usage: envdir dir child"
@@ -160,5 +158,5 @@ func main() {
 		fmt.Fprintln(os.Stderr, errmsg)
 		os.Exit(111)
 	}
-	log.Fatal(unix.Exec(execArgs.Binary, execArgs.Args, execArgs.Env))
+	log.Fatal(execve(execArgs))
 }
