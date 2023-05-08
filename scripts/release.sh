@@ -3,8 +3,9 @@
 set -euo pipefail
 
 main() {
+    export GO111MODULE=on
     go install github.com/goreleaser/goreleaser@latest
-    GOROOT=~/go1.18 PATH=~/go1.18/bin:$PATH goreleaser release
+    GOROOT=~/go1.20 PATH=~/go1.20/bin:$PATH goreleaser release
 }
 
 main "$@"
