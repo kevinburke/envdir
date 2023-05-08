@@ -37,7 +37,7 @@ the same as that of childprog.
 Install from source:
 
 ```
-go install github.com/kevinburke/envdir@v0.6
+go install github.com/kevinburke/envdir@v0.7
 ```
 
 Or, on Macs you can install via Homebrew:
