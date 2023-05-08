@@ -1,5 +1,5 @@
 module github.com/kevinburke/envdir
 
-go 1.18
+go 1.20
 
-require golang.org/x/sys v0.0.0-20220610221304-9f5ed59c137d
+require golang.org/x/sys v0.8.0
