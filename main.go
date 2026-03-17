@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -120,7 +119,7 @@ func run(args []string) (execArgs, string) {
 			return execArgs{}, fmt.Sprintf("unable to open %q: %v", path, err)
 		}
 		limitf := io.LimitedReader{R: f, N: 1024}
-		contents, err := ioutil.ReadAll(&limitf)
+		contents, err := io.ReadAll(&limitf)
 		if err != nil {
 			return execArgs{}, fmt.Sprintf("unable to read %q: %v", path, err)
 		}
