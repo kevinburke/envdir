@@ -4,7 +4,7 @@ jobs:
   test:
     strategy:
       matrix:
-        go-version: [1.24.x, 1.25.x]
+        go-version: [1.25.x, 1.26.x]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
@@ -19,4 +19,40 @@ jobs:
     - run: echo "PATH=$GITHUB_WORKSPACE/bin:$PATH" >> $GITHUB_ENV
     - name: Run tests
       run: make test
+      working-directory: './src/github.com/kevinburke/envdir'
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        path: './src/github.com/kevinburke/envdir'
+    - name: Install Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: 1.26.x
+    - run: echo "GOPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+    - run: echo "PATH=$GITHUB_WORKSPACE/bin:$PATH" >> $GITHUB_ENV
+    - name: Install staticcheck
+      run: go install honnef.co/go/tools/cmd/staticcheck@latest
+    - name: Lint
+      run: make lint
+      working-directory: './src/github.com/kevinburke/envdir'
+
+  diffs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        path: './src/github.com/kevinburke/envdir'
+    - name: Install Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: 1.26.x
+    - run: echo "GOPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+    - run: echo "PATH=$GITHUB_WORKSPACE/bin:$PATH" >> $GITHUB_ENV
+    - name: Install goimports
+      run: go install golang.org/x/tools/cmd/goimports@latest
+    - name: Check generated files are up to date
+      run: make ci-diffs
       working-directory: './src/github.com/kevinburke/envdir'
