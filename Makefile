@@ -20,5 +20,5 @@ ci-diffs: $(DIFFER)
 vendor:
 	go mod vendor
 
-release:
+release: ## Update Version in main.go, then run this.
 	bash scripts/release.sh

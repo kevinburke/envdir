@@ -66,6 +66,18 @@ brew install kevinburke/safe/envdir
   file.
 
 
+### Releasing a new version
+
+1. Update the `Version` constant in `main.go`.
+2. Commit the version bump to `main`.
+3. Run `make release` (or `bash scripts/release.sh`).
+
+The release script validates git state, runs tests, tags the commit, and builds
+cross-platform binaries via goreleaser. Use `--dry-run` to preview without
+making changes.
+
+Requires `go`, `goreleaser` (v2+), `gh`, and `git`.
+
 ### Errata
 
 - The original envdir would only allow 256 bytes in an environment variable, this
