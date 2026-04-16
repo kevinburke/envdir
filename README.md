@@ -77,6 +77,8 @@ cross-platform binaries via goreleaser. Use `--dry-run` to preview without
 making changes.
 
 Requires `go`, `goreleaser` (v2+), `gh`, and `git`.
+It reads a release token from `gh auth token` and passes it only to
+`goreleaser`, so `GITHUB_TOKEN` does not need to be exported in your shell.
 
 ### Errata
 

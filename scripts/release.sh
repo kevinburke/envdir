@@ -51,6 +51,13 @@ run() {
     fi
 }
 
+run_with_github_token() {
+    printf '    $ GITHUB_TOKEN=<from gh auth token> %s\n' "$*"
+    if [ "$DRY_RUN" -eq 0 ]; then
+        GITHUB_TOKEN="$GITHUB_TOKEN_VALUE" GH_TOKEN="$GITHUB_TOKEN_VALUE" "$@"
+    fi
+}
+
 require_tool() {
     if ! command -v "$1" >/dev/null 2>&1; then
         err "required tool not found on PATH: $1"
@@ -86,8 +93,18 @@ log "go version: $go_version"
 # ---- preflight: GitHub auth --------------------------------------------------
 
 log "checking GitHub authentication"
-if ! gh auth status >/dev/null 2>&1; then
+if ! env -u GITHUB_TOKEN -u GH_TOKEN gh auth status >/dev/null 2>&1; then
     err "gh is not authenticated. Run 'gh auth login' first."
+    exit 1
+fi
+
+log "retrieving GitHub token from gh auth"
+if ! GITHUB_TOKEN_VALUE="$(env -u GITHUB_TOKEN -u GH_TOKEN gh auth token)"; then
+    err "could not read a GitHub token from gh. Run 'gh auth login' first."
+    exit 1
+fi
+if [ -z "$GITHUB_TOKEN_VALUE" ]; then
+    err "gh auth token returned an empty token"
     exit 1
 fi
 
@@ -161,7 +178,7 @@ run git push origin "$TAG"
 # ---- goreleaser --------------------------------------------------------------
 
 log "building and releasing with goreleaser"
-run goreleaser release --clean
+run_with_github_token goreleaser release --clean
 
 log "release $TAG complete"
 if [ "$DRY_RUN" -eq 1 ]; then
