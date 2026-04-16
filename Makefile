@@ -21,5 +21,4 @@ vendor:
 	go mod vendor
 
 release:
-	go install -trimpath -v ./...
-	envdir envs/release bash scripts/release.sh
+	bash scripts/release.sh

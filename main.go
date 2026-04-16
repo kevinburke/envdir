@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -11,6 +12,8 @@ import (
 	"strings"
 	"unicode"
 )
+
+const Version = "0.8.0"
 
 const usage = "usage: envdir dir child"
 
@@ -151,6 +154,16 @@ func run(args []string) (execArgs, string) {
 }
 
 func main() {
+	version := flag.Bool("version", false, "Print the version and exit")
+	flag.Usage = func() {
+		fmt.Fprintln(os.Stderr, usage)
+		flag.PrintDefaults()
+	}
+	flag.Parse()
+	if *version {
+		fmt.Fprintf(os.Stdout, "envdir version %s\n", Version)
+		os.Exit(0)
+	}
 	args := os.Args
 	execArgs, errmsg := run(args)
 	if errmsg != "" {

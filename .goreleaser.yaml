@@ -1,15 +1,22 @@
 # https://goreleaser.com/customization/build/
+version: 2
 builds:
   - goos:
       - linux
       - windows
       - darwin
-    gcflags:
+    goarch:
+      - amd64
+      - arm64
+      - 386
+    flags:
       - -trimpath
 archives:
-  - replacements:
-      386: i386
-      amd64: x86_64
+  - name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
 checksum:
   name_template: 'checksums.txt'
 snapshot:
