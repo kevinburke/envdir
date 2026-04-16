@@ -13,7 +13,7 @@ import (
 	"unicode"
 )
 
-const Version = "0.8.0"
+const Version = "0.8.1"
 
 const usage = "usage: envdir dir child"
 
