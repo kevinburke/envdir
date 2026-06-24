@@ -7,7 +7,7 @@ jobs:
         go-version: [1.25.x, 1.26.x]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6.0.3
+    - uses: actions/checkout@v7.0.0
       with:
         path: './src/github.com/kevinburke/envdir'
     - name: Install Go
@@ -24,7 +24,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6.0.3
+    - uses: actions/checkout@v7.0.0
       with:
         path: './src/github.com/kevinburke/envdir'
     - name: Install Go
@@ -42,7 +42,7 @@ jobs:
   diffs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6.0.3
+    - uses: actions/checkout@v7.0.0
       with:
         path: './src/github.com/kevinburke/envdir'
     - name: Install Go
